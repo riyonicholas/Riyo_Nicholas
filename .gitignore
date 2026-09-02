@@ -1,0 +1,94 @@
+# ===========================
+# Dependencies
+# ===========================
+node_modules/
+.pnp
+.pnp.js
+
+# ===========================
+# Environment Variables (SENSITIVE - NEVER COMMIT)
+# ===========================
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+
+# ===========================
+# Next.js (Frontend)
+# ===========================
+forntend/.next/
+forntend/out/
+forntend/.vercel
+forntend/build/
+
+# ===========================
+# Build Output
+# ===========================
+dist/
+build/
+out/
+
+# ===========================
+# Logs
+# ===========================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+logs/
+
+# ===========================
+# Cache
+# ===========================
+.cache/
+.parcel-cache
+.eslintcache
+.stylelintcache
+.turbo
+
+# ===========================
+# OS Files
+# ===========================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ===========================
+# IDE & Editor
+# ===========================
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ===========================
+# TypeScript
+# ===========================
+*.tsbuildinfo
+next-env.d.ts
+
+# ===========================
+# Testing
+# ===========================
+coverage/
+.nyc_output
+
+# ===========================
+# Misc
+# ===========================
+*.pem
+.vercel
