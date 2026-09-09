@@ -1,0 +1,5 @@
+{
+  "buildCommand": "cd forntend && npm install && npm run build",
+  "outputDirectory": "forntend/.next",
+  "framework": "nextjs"
+}
