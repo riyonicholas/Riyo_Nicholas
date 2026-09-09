@@ -54,81 +54,71 @@ function ServiceCard({
   return (
     <div
       onClick={onExplore}
-      className="group/card cursor-pointer shrink-0 w-[310px] sm:w-[370px] md:w-[410px] lg:w-[440px] flex flex-col select-none perspective-1000"
+      className="group/card cursor-pointer w-full h-full flex flex-col select-none"
     >
-      {/* Liquid Glass Container */}
-      <div className="relative flex flex-col h-[460px] sm:h-[520px] rounded-[2.5rem] bg-white/40 backdrop-blur-2xl border border-white/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_50px_rgb(46,71,53,0.12)] transition-all duration-700 ease-out hover:-translate-y-3 overflow-hidden">
+      <div className="relative flex flex-col h-full rounded-[2rem] bg-white shadow-[0_10px_40px_rgb(0,0,0,0.03)] hover:shadow-[0_20px_60px_rgb(46,71,53,0.08)] border border-slate-100 transition-all duration-500 ease-out hover:-translate-y-2 overflow-hidden">
         
-        {/* Subtle Inner Glow / Reflection for Glass Effect */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-white/70 pointer-events-none opacity-60 z-0" />
+        {/* Top Image Area */}
+        <div className="relative w-full aspect-[4/3] sm:aspect-video lg:aspect-[4/3] overflow-hidden bg-slate-100">
+          <img
+            src={item.img}
+            alt={item.title}
+            loading="lazy"
+            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover/card:scale-105"
+          />
+          {/* Subtle gradient overlay to make image look premium */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500" />
+          
+          {/* Floating Badge (Top Left) */}
+          <div className="absolute top-4 left-4 z-10">
+            <span className="px-3.5 py-1.5 bg-white/95 backdrop-blur-sm text-slate-800 text-[10px] sm:text-xs font-bold rounded-full uppercase tracking-wider shadow-sm">
+              {item.badge}
+            </span>
+          </div>
 
-        {/* Floating Top Image Area */}
-        <div className="relative w-full h-[45%] sm:h-[50%] p-4 sm:p-5 pb-0 z-20">
-          <div className="w-full h-full rounded-[1.8rem] overflow-hidden shadow-sm relative border border-white/40">
-            <img
-              src={item.img}
-              alt={item.title}
-              loading="lazy"
-              className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover/card:scale-110"
-            />
-            {/* Subtle overlay on image */}
-            <div className="absolute inset-0 bg-black/5 group-hover/card:bg-black/0 transition-colors duration-500" />
-            
-            {/* Glass Badge Floating on Image */}
-            <div className="absolute top-3.5 left-3.5">
-              <span className="px-3.5 py-1.5 bg-white/80 text-[#2e4735] text-[10px] sm:text-xs font-bold rounded-full uppercase tracking-widest backdrop-blur-md shadow-sm border border-white">
-                {item.badge}
-              </span>
-            </div>
-
-            {/* Glass Number Indicator */}
-            <div className="absolute top-3.5 right-3.5">
-               <span className="w-8 h-8 flex items-center justify-center bg-black/20 backdrop-blur-md rounded-full text-white text-xs font-mono font-bold border border-white/30 shadow-sm">
-                 0{item.id}
-               </span>
+          {/* Icon/Arrow (Top Right) */}
+          <div className="absolute top-4 right-4 z-10">
+            <div className="w-9 h-9 rounded-full bg-white/95 backdrop-blur-sm text-slate-800 shadow-sm flex items-center justify-center group-hover/card:bg-[#f5b201] group-hover/card:text-white transition-all duration-300 -rotate-45 group-hover/card:rotate-0">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
             </div>
           </div>
         </div>
 
         {/* Content Area */}
-        <div className="relative z-30 flex flex-col flex-1 px-8 py-6 sm:px-10 sm:py-8">
+        <div className="relative flex flex-col flex-1 p-6 sm:p-8">
           
-          <div className="mb-auto">
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-800 mb-3 group-hover/card:text-[#2e4735] transition-colors duration-300 drop-shadow-sm">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-xl sm:text-2xl font-bold text-slate-900 group-hover/card:text-[#2e4735] transition-colors duration-300">
               {item.title}
             </h3>
-            
-            <p className="text-slate-600 text-xs sm:text-sm leading-relaxed line-clamp-3 mb-4 font-medium">
-              {item.desc}
-            </p>
+            <span className="text-slate-300 text-sm font-extrabold font-mono">0{item.id}</span>
           </div>
+          
+          <p className="text-slate-500 text-sm leading-relaxed line-clamp-3 mb-6 font-medium">
+            {item.desc}
+          </p>
 
           <div className="mt-auto">
-            <div className="flex flex-wrap gap-2.5 mb-6">
+            {/* Tags */}
+            <div className="flex flex-wrap gap-2 mb-6">
               {item.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="text-[10px] sm:text-xs font-bold px-3.5 py-1.5 rounded-xl bg-white/50 hover:bg-white text-[#2e4735] transition-colors backdrop-blur-md shadow-sm border border-white/60"
+                  className="text-[11px] font-semibold px-3 py-1.5 rounded-lg bg-slate-50 text-slate-600 border border-slate-100 group-hover/card:border-slate-200 transition-colors"
                 >
                   {tag}
                 </span>
               ))}
             </div>
 
-            {/* Animated Divider */}
-            <div className="w-full h-[1px] bg-slate-300/60 mb-5 relative overflow-hidden rounded-full">
-              <div className="absolute top-0 left-0 h-full w-full bg-[#f5b201] -translate-x-full group-hover/card:translate-x-0 transition-transform duration-700 ease-out" />
-            </div>
-
-            {/* Footer Explore Action */}
-            <div className="flex items-center justify-between text-[#2e4735] font-bold text-sm">
-              <span className="flex items-center gap-3 tracking-wide uppercase text-xs">
-                Lihat Detail
-                <div className="w-6 h-[2px] bg-[#2e4735] group-hover/card:w-12 group-hover/card:bg-[#f5b201] transition-all duration-500 ease-out" />
-              </span>
-              <div className="w-10 h-10 rounded-full bg-white/70 shadow-sm border border-white/80 flex items-center justify-center group-hover/card:bg-[#f5b201] group-hover/card:text-white transition-all duration-300 -rotate-45 group-hover/card:rotate-0">
+            {/* Footer Action */}
+            <div className="pt-5 border-t border-slate-100 flex items-center justify-between text-[#2e4735] font-bold text-sm">
+              <span>Eksplorasi Detail</span>
+              <div className="flex items-center group-hover/card:translate-x-2 transition-transform duration-300 text-[#f5b201]">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </div>
             </div>
@@ -167,7 +157,7 @@ export default function PortfolioSection() {
 
       {/* Cards Gallery */}
       <div className="w-full relative z-10 max-w-7xl mx-auto px-6 lg:px-8 pb-10 pt-4">
-        <div className="flex flex-wrap justify-center gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {servicesData.map((item, idx) => (
             <ServiceCard
               key={`card-${item.id}-${idx}`}
