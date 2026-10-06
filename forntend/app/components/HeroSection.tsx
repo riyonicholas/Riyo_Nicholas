@@ -169,7 +169,7 @@ export default function HeroSection() {
               </h2>
             </div>
             <button 
-              onClick={() => router.push("/services?tab=services&from=layanan")}
+              onClick={() => router.push("/all-services")}
               className="hidden md:flex mt-6 md:mt-0 bg-[#2e4735]/90 backdrop-blur-xl border border-white/20 hover:bg-[#1f3124] hover:scale-105 text-white pl-6 pr-1.5 py-1.5 rounded-full font-bold transition-all duration-300 items-center gap-4 text-sm shadow-[0_8px_24px_0_rgba(46,71,53,0.3)]"
             >
               View All Services

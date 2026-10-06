@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
-type Category = "uiux" | "grafis" | "frontend" | "hardware" | "penelitian";
+type Category = "uiux" | "grafis" | "frontend" | "hardware" | "penelitian" | "sertifikat";
 
 interface ProjectItem {
   id: number;
@@ -136,6 +136,26 @@ const staticPortfolioData: Record<Category, ProjectItem[]> = {
       img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop",
       metricLabel: "WEB DEV",
     }
+  ],
+  sertifikat: [
+    {
+      id: 20,
+      title: "Dicoding: Front-End Web Developer",
+      desc: "Sertifikat kelulusan kelas fundamental front-end web developer.",
+      tags: ["Certificate", "Dicoding", "Web"],
+      detail: "Materi mencakup DOM Manipulation, Web Storage, dan dasar JavaScript modern.",
+      img: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop",
+      metricLabel: "SERTIFIKAT",
+    },
+    {
+      id: 21,
+      title: "Sertifikasi UI/UX Design",
+      desc: "Pelatihan komprehensif desain antarmuka dan pengalaman pengguna.",
+      tags: ["Design", "Certificate", "UI/UX"],
+      detail: "Menyelesaikan studi kasus pembuatan aplikasi mulai dari wireframe hingga hi-fi prototype.",
+      img: "https://images.unsplash.com/photo-1589330694653-ded6df03f754?q=80&w=800&auto=format&fit=crop",
+      metricLabel: "SERTIFIKAT",
+    }
   ]
 };
 
@@ -145,6 +165,7 @@ const tabs: { id: Category; label: string; icon: string; badge: string }[] = [
   { id: "frontend", label: "Front-End Web", icon: "💻", badge: "Web Developer" },
   { id: "hardware", label: "Hardware", icon: "🔧", badge: "Perbaikan Komponen" },
   { id: "penelitian", label: "Penelitian Ilmiah", icon: "🔬", badge: "Riset Teknologi" },
+  { id: "sertifikat", label: "Sertifikat", icon: "📜", badge: "Penghargaan & Sertifikasi" },
 ];
 
 export default function ServicesSection() {
@@ -259,52 +280,72 @@ export default function ServicesSection() {
             <div
               key={item.id || idx}
               onClick={() => setSelectedModalProject(item)}
-              className="group cursor-pointer bg-white/60 backdrop-blur-xl rounded-[2.5rem] overflow-hidden flex flex-col shadow-[0_8px_32px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_48px_rgba(46,71,53,0.12)] transition-all duration-500 hover:-translate-y-2 border border-white"
+              className={`group cursor-pointer bg-white/60 backdrop-blur-xl rounded-[2.5rem] overflow-hidden flex flex-col shadow-[0_8px_32px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_48px_rgba(46,71,53,0.12)] transition-all duration-500 hover:-translate-y-2 border border-white ${active === "sertifikat" ? "p-2 bg-white/80" : ""}`}
             >
-              {/* Top Image Container */}
-              <div className="relative h-56 sm:h-64 overflow-hidden bg-slate-200 shrink-0">
-                <img
-                  src={item.img}
-                  alt={item.title}
-                  loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                
-                {/* Floating Metric Badge over the image */}
-                <div className="absolute top-4 right-4 z-20">
-                  <span className="bg-white/90 backdrop-blur-md border border-slate-200 text-slate-800 text-[10px] font-extrabold px-3 py-1.5 rounded-full uppercase tracking-widest shadow-sm flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#f5b201]"></span>
-                    {item.metricLabel}
-                  </span>
+              {active === "sertifikat" ? (
+                /* ─── DESAIN KHUSUS SERTIFIKAT (GAMBAR SAJA) ─── */
+                <div className="relative w-full aspect-[4/3] rounded-[2rem] overflow-hidden bg-slate-200 shadow-inner">
+                  <img
+                    src={item.img}
+                    alt={item.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500 flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 scale-75 group-hover:scale-100 transition-all duration-500 w-14 h-14 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center text-[#2e4735] shadow-lg border border-white/50">
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" /></svg>
+                    </div>
+                  </div>
                 </div>
-              </div>
-
-              {/* Bottom Text Panel */}
-              <div className="p-6 md:p-8 flex flex-col flex-1">
-                <h3 className="text-xl md:text-2xl font-extrabold text-slate-900 leading-tight mb-3 line-clamp-2 group-hover:text-[#2e4735] transition-colors">
-                  {item.title}
-                </h3>
-                <p className="text-slate-600 text-sm leading-relaxed font-medium mb-6 line-clamp-2">
-                  {item.desc}
-                </p>
-
-                <div className="mt-auto pt-5 border-t border-slate-200/60 flex items-center justify-between">
-                  <div className="flex flex-wrap gap-2 overflow-hidden max-h-7">
-                    {item.tags.slice(0, 2).map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-[10px] font-bold px-3 py-1 rounded-full bg-slate-100 text-slate-600 border border-slate-200 truncate"
-                      >
-                        {tag}
+              ) : (
+                /* ─── DESAIN DEFAULT (GAMBAR + TEKS) ─── */
+                <>
+                  {/* Top Image Container */}
+                  <div className="relative h-56 sm:h-64 overflow-hidden bg-slate-200 shrink-0">
+                    <img
+                      src={item.img}
+                      alt={item.title}
+                      loading="lazy"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    
+                    {/* Floating Metric Badge over the image */}
+                    <div className="absolute top-4 right-4 z-20">
+                      <span className="bg-white/90 backdrop-blur-md border border-slate-200 text-slate-800 text-[10px] font-extrabold px-3 py-1.5 rounded-full uppercase tracking-widest shadow-sm flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#f5b201]"></span>
+                        {item.metricLabel}
                       </span>
-                    ))}
+                    </div>
                   </div>
 
-                  <div className="w-10 h-10 shrink-0 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-400 group-hover:bg-[#f5b201] group-hover:border-[#f5b201] group-hover:text-white group-hover:scale-110 transition-all shadow-sm">
-                    <svg className="w-4 h-4 -rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
+                  {/* Bottom Text Panel */}
+                  <div className="p-6 md:p-8 flex flex-col flex-1">
+                    <h3 className="text-xl md:text-2xl font-extrabold text-slate-900 leading-tight mb-3 line-clamp-2 group-hover:text-[#2e4735] transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="text-slate-600 text-sm leading-relaxed font-medium mb-6 line-clamp-2">
+                      {item.desc}
+                    </p>
+
+                    <div className="mt-auto pt-5 border-t border-slate-200/60 flex items-center justify-between">
+                      <div className="flex flex-wrap gap-2 overflow-hidden max-h-7">
+                        {item.tags.slice(0, 2).map((tag) => (
+                          <span
+                            key={tag}
+                            className="text-[10px] font-bold px-3 py-1 rounded-full bg-slate-100 text-slate-600 border border-slate-200 truncate"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      <div className="w-10 h-10 shrink-0 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-400 group-hover:bg-[#f5b201] group-hover:border-[#f5b201] group-hover:text-white group-hover:scale-110 transition-all shadow-sm">
+                        <svg className="w-4 h-4 -rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
+                </>
+              )}
             </div>
           ))}
         </div>
